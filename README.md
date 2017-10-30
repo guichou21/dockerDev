@@ -95,22 +95,22 @@ docker-compose rm
 
 ## 3) Tools
 
-# cleanenv.sh : 
+### cleanenv.sh : 
 
 - Remove stopped container
 
-# logs.sh : 
+### logs.sh : 
 
 - show the real time logs from the container "http"
 
-# stats.sh :
+### stats.sh :
 
 - show the ressources statistics foreach running containers
 
-# dump_sql.sh <database name>
+### dump_sql.sh <database name>
 
 - Create a dump of the database <database name> inside the current directory "tools/"
 
-# restore_sql.sh <dump file.sql>
+##1 restore_sql.sh <dump file.sql>
 
 - Restore/import the sql dump inside the SQL container . 

@@ -1,5 +1,8 @@
 FROM php:5.6-fpm
 
+# Permission OS X fix
+RUN usermod -u 1000 www-data  
+
 # install the PHP extensions we need
 RUN set -ex; \
 	\
@@ -9,11 +12,12 @@ RUN set -ex; \
 		libpng12-dev \
                 libmcrypt-dev \
                 ssmtp \
+         zlib1g-dev \
 	; \
 	rm -rf /var/lib/apt/lists/*; \
 	\
 	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
-	docker-php-ext-install gd mysqli opcache pdo_mysql json mcrypt; \
+	docker-php-ext-install gd mysqli opcache pdo_mysql json mcrypt zip ; \
         pecl install -o -f xdebug redis \
         && rm -rf /tmp/pear \
         && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini \
@@ -42,6 +46,7 @@ RUN { \
         echo 'log_errors = On'; \
         echo 'display_errors = Off'; \
         echo 'include_path = ".:/usr/share/php:/usr/local/apache2/htdocs/ws_engine"'; \
+        echo 'date.timezone = "Europe/Paris"'; \
     } > /usr/local/etc/php/php.ini
 
 CMD ["php-fpm"]
